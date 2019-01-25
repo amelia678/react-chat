@@ -16,6 +16,19 @@ class App extends Component {
     this.ws = new WebSocket('ws://localhost:5000')
   }
 
+  componentDidMount() {
+    this.ws.addEventListener('message', (event) => {
+      const message = JSON.parse(event.data)
+
+      this.setState({
+        messages: [
+          ...this.state.messages,
+          message
+        ]
+      })
+    })
+  }
+
   render() {
     return (
       <div>
